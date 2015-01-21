@@ -447,8 +447,11 @@ module BinDeps
         for x in s.steps
     		if(!isempty(s.cwd))
     			info("Changing Directory to $(s.cwd)")
+                        @show isdir(s.cwd)
     			cd(s.cwd)
     		end
+            @show pwd()
+            @show x
             run(x)
             if(!isempty(s.oldcwd))
     			info("Changing Directory to $(s.oldcwd)")
