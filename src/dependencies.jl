@@ -13,11 +13,19 @@ type PackageContext
     deps::Vector{Any}
 end
 
+if VERSION < v"0.4.0-dev+4319"
+    typealias LibraryProviders Vector{(DependencyProvider,Dict{Symbol,Any})}
+    typealias LibraryHelpers Vector{(DependencyHelper,Dict{Symbol,Any})}
+else
+    typealias LibraryProviders Vector{Tuple{DependencyProvider,Dict{Symbol,Any}}}
+    typealias LibraryHelpers Vector{Tuple{DependencyHelper,Dict{Symbol,Any}}}
+end
+
 type LibraryDependency
     name::String
     context::PackageContext
-    providers::Vector{(DependencyProvider,Dict{Symbol,Any})}
-    helpers::Vector{(DependencyHelper,Dict{Symbol,Any})}
+    providers::LibraryProviders
+    helpers::LibraryHelpers
     properties::Dict{Symbol,Any}
     libvalidate::Function
 end
